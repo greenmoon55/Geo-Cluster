@@ -86,12 +86,14 @@ public class ClusterData {
     /**
      * Function: smartSwap Description: implement the swap clustering method by
      * swapping the farthest point in a cluster and one of the two nearest
-     * clusters centroids Main steps: 1. k initial "means" are randomly selected
-     * from the data set 2. k clusters are created by associating every point
-     * with the nearest mean 3. Update the centroids with new means of the k
-     * clusters. 4. find the nearest two clusters and randomly select a point
+     * clusters centroids Main steps:
+     * 1. k initial "means" are randomly selected from the data set
+     * 2. k clusters are created by associating every point with the nearest mean
+     * 3. Update the centroids with new means of the k clusters.
+     * 4. find the nearest two clusters and randomly select a point
      * from data set if this data set does not belong these two nearest
-     * clusters, then swap them, 5. Repeat Steps 2, 3 and 4 for k times
+     * clusters, then swap them,
+     * 5. Repeat Steps 2, 3 and 4 for k times
      *
      * @author Rocky
      */
@@ -178,11 +180,11 @@ public class ClusterData {
                 if (dist > preDist) {
                     fullAssign(i, currentC);
                 } else {
-                    activityAssgin(i, currentC, activity);
+                    activityAssign(i, currentC, activity);
                 }
             } else // in static clusters
             {
-                activityAssgin(i, currentC, activity);
+                activityAssign(i, currentC, activity);
             }
         }
 
@@ -217,7 +219,7 @@ public class ClusterData {
      * @param currentC
      * @param activity
      */
-    private void activityAssgin(int index, Point[] currentC, int[] activity) {
+    private void activityAssign(int index, Point[] currentC, int[] activity) {
         int i, temp;
         int bestId; // best cluster for a point
         int len = activity.length;
@@ -349,21 +351,21 @@ public class ClusterData {
             GLAIndex[i] = bestId;
         }
     }
-    // FOR SWAP METHOD
 
+    // FOR SWAP METHOD
     private void assignDataSwap() {
         int i, j;
         int len = data.length;
         double dist, bestDist;
         int bestId; // best cluster for a point
-        // initilize the points in clusters before reaasign data points
+        // initialize the points in clusters before reaasign data points
         for (i = 0; i < k; i++) {
             clusters[i].pointsList.clear();
         }
 
         // assign point to the nearest centroid
         for (i = 0; i < len; i++) {
-            // initilize the point to the first cluster
+            // initialize the point to the first cluster
             bestDist = data[i].getDistance(clusters[0].centroid);
 
             bestId = 0;
