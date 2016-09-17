@@ -255,7 +255,7 @@ public class ClusterData {
         double dist, bestDist;
         Point point = data[index];
 
-        // initilize the point to the first cluster
+        // initialize the point to the first cluster
         bestDist = point.getDistance(currentC[0]);
 
 

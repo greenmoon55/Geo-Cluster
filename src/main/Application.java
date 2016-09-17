@@ -70,7 +70,7 @@ public class Application extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-//        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         stateLabel = new javax.swing.JLabel();
         tabbedViewerPanel = new javax.swing.JTabbedPane();
@@ -830,8 +830,8 @@ public class Application extends javax.swing.JFrame {
 
         jLabel19.setText("Grid Size:");
 
-//        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, gridSizeSlider, org.jdesktop.beansbinding.ELProperty.create("${value}"), gridSizeLabel, org.jdesktop.beansbinding.BeanProperty.create("text"));
-//        bindingGroup.addBinding(binding);
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, gridSizeSlider, org.jdesktop.beansbinding.ELProperty.create("${value}"), gridSizeLabel, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         gridSizeSlider.setMinimum(30);
         gridSizeSlider.setValue(60);
@@ -1263,7 +1263,7 @@ public class Application extends javax.swing.JFrame {
 
         tabbedViewerPanel.getAccessibleContext().setAccessibleName("");
 
-//        bindingGroup.bind();
+        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -2067,7 +2067,7 @@ public class Application extends javax.swing.JFrame {
     private javax.swing.JLabel stateLabel;
     private javax.swing.JTabbedPane tabbedViewerPanel;
     private javax.swing.JLabel timeLabel;
-//    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
 }
