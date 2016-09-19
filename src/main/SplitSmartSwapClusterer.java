@@ -20,7 +20,6 @@ public class SplitSmartSwapClusterer {
 
     private final MapKit mapKit;
     private Point[] data;
-    public int gridSize;
     private ArrayList<Cluster> clusters;
     public Cluster[] clustersArray;
     public long duration;
@@ -30,24 +29,26 @@ public class SplitSmartSwapClusterer {
         this.mapKit = mapKit;
     }
 
-    public int startMarkerCluster(Point[] data, int gridSize) {
+    public int startSplitSmartSwap(Point[] data) {
         if (data == null) {
             return 1;
         } else if (data.length == 0) {
             return 2;
         }
         this.startCluster = true;
-        this.gridSize = gridSize;
         this.data = data.clone();
-        doMarkerCluster();
+        doSplitSmartSwap();
         return 0;
     }
 
-    public boolean doMarkerCluster() {
+    public boolean doSplitSmartSwap() {
         if (!startCluster) return startCluster;
         
         long start = System.currentTimeMillis();
         this.clusters = new ArrayList<Cluster>();
+        ClusterData cd = new ClusterData(data, true);
+        Cluster[] clusters = cd.smartSwap(10);
+
         Rectangle2D bounds = getExtentedGeoBounds(mapKit.getMainMap().getViewportBounds());
         for (Point p : data) {
             if (containsGeoPoint(bounds, p)) {
@@ -55,14 +56,11 @@ public class SplitSmartSwapClusterer {
             }
         }
         
-        clustersArray = new Cluster[this.clusters.size()];
-        for (int i = 0; i < clusters.size(); i++) {
-            clustersArray[i] = clusters.get(i);
-        }
         duration = System.currentTimeMillis() - start;
 
-        mapKit.setWaypoints(clustersArray);
+        mapKit.setWaypoints(clusters);
         mapKit.repaint();
+        this.clustersArray = clusters;
         return startCluster;
     }
 
@@ -99,6 +97,7 @@ public class SplitSmartSwapClusterer {
     }
 
     private Rectangle2D getExtentedGeoBounds(Rectangle bounds) {
+        int gridSize = 0;
         Point2D upperLeft = new Point2D.Double(bounds.x - gridSize, bounds.y - gridSize);
         Point2D lowerRight = new Point2D.Double(bounds.x + bounds.width + gridSize, bounds.y + bounds.height + gridSize);
         TileFactory tf = mapKit.getMainMap().getTileFactory();

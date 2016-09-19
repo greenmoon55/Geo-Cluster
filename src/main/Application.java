@@ -1527,7 +1527,20 @@ public class Application extends javax.swing.JFrame {
     }//GEN-LAST:event_hierarchicalSelectPanelMouseReleased
 
         private void splitSmartSwapClustererButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererButtonActionPerformed
-            // TODO add your handling code here:
+            switch (mapKit.splitSmartSwapCluster.startSplitSmartSwap(data)) {
+            case 0:
+                this.tabbedViewerPanel.setSelectedIndex(2);
+                showResultInfo(mapKit.splitSmartSwapCluster.clustersArray, mapKit.splitSmartSwapCluster.duration, "SplitSmartSwapCluster");
+                break;
+            case 1:
+                showWarning("There is no loaded file.");
+                break;
+            case 2:
+                showWarning("There is no point.");
+                break;
+            default:
+                break;
+        }
         }//GEN-LAST:event_splitSmartSwapClustererButtonActionPerformed
 
         private void splitSmartSwapClustererRadioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererRadioStateChanged
