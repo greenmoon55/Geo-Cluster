@@ -181,7 +181,7 @@ public class Application extends javax.swing.JFrame {
                 jLabel26 = new javax.swing.JLabel();
                 splitSmartSwapClustererPanel = new javax.swing.JPanel();
                 splitSmartSwapClustererSettingPanel = new javax.swing.JPanel();
-                splitsmartswapClustererButton = new javax.swing.JButton();
+                splitSmartSwapClustererButton = new javax.swing.JButton();
                 jSeparator6 = new javax.swing.JSeparator();
                 splitSmartSwapClustererSelectPanel = new javax.swing.JPanel();
                 jLabel28 = new javax.swing.JLabel();
@@ -1141,11 +1141,11 @@ public class Application extends javax.swing.JFrame {
 
                 splitSmartSwapClustererPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-                splitsmartswapClustererButton.setText("run");
-                splitsmartswapClustererButton.setEnabled(false);
-                splitsmartswapClustererButton.addActionListener(new java.awt.event.ActionListener() {
+                splitSmartSwapClustererButton.setText("run");
+                splitSmartSwapClustererButton.setEnabled(false);
+                splitSmartSwapClustererButton.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                splitsmartswapClustererButtonActionPerformed(evt);
+                                splitSmartSwapClustererButtonActionPerformed(evt);
                         }
                 });
 
@@ -1155,7 +1155,7 @@ public class Application extends javax.swing.JFrame {
                         splitSmartSwapClustererSettingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(splitSmartSwapClustererSettingPanelLayout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(splitsmartswapClustererButton)
+                                .addComponent(splitSmartSwapClustererButton)
                                 .addContainerGap())
                         .addComponent(jSeparator6)
                 );
@@ -1164,7 +1164,7 @@ public class Application extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, splitSmartSwapClustererSettingPanelLayout.createSequentialGroup()
                                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(splitsmartswapClustererButton)
+                                .addComponent(splitSmartSwapClustererButton)
                                 .addContainerGap())
                 );
 
@@ -1526,9 +1526,9 @@ public class Application extends javax.swing.JFrame {
         hierarchicalRadio.setSelected(!hierarchicalRadio.isSelected());
     }//GEN-LAST:event_hierarchicalSelectPanelMouseReleased
 
-        private void splitsmartswapClustererButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitsmartswapClustererButtonActionPerformed
+        private void splitSmartSwapClustererButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererButtonActionPerformed
             // TODO add your handling code here:
-        }//GEN-LAST:event_splitsmartswapClustererButtonActionPerformed
+        }//GEN-LAST:event_splitSmartSwapClustererButtonActionPerformed
 
         private void splitSmartSwapClustererRadioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererRadioStateChanged
             boolean selected = splitSmartSwapClustererRadio.isSelected();
@@ -1553,6 +1553,7 @@ public class Application extends javax.swing.JFrame {
         }
         this.isGPSData = isGPSData;
         markerClustererButton.setEnabled(isGPSData);
+	splitSmartSwapClustererButton.setEnabled(isGPSData);
     }
 
     private void showResultInfo(Cluster[] clusters, long duration, String algorithm) {
@@ -2177,11 +2178,11 @@ public class Application extends javax.swing.JFrame {
         private javax.swing.JRadioButton spectralRadio;
         private javax.swing.JPanel spectralSelectPanel;
         private javax.swing.JPanel spectralSettingPanel;
+        private javax.swing.JButton splitSmartSwapClustererButton;
         private javax.swing.JPanel splitSmartSwapClustererPanel;
         private javax.swing.JRadioButton splitSmartSwapClustererRadio;
         private javax.swing.JPanel splitSmartSwapClustererSelectPanel;
         private javax.swing.JPanel splitSmartSwapClustererSettingPanel;
-        private javax.swing.JButton splitsmartswapClustererButton;
         private javax.swing.JLabel stateLabel;
         private javax.swing.JTabbedPane tabbedViewerPanel;
         private javax.swing.JLabel timeLabel;
