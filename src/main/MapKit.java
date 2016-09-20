@@ -73,7 +73,7 @@ public class MapKit extends JXMapKit {
         waypointPainter.setRenderer(new MyWaypointRenderer());
         this.getMainMap().setOverlayPainter(waypointPainter);
         markerClusterer = new MarkerClusterer(this);
-	splitSmartSwapCluster = new SplitSmartSwapClusterer(this);
+        splitSmartSwapCluster = new SplitSmartSwapClusterer(this);
     }
 
     public void setWaypoints(Cluster[] clusters) {

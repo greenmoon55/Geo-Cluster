@@ -650,5 +650,21 @@ public class ClusterData {
 
         return mse;
     }
+    
+    public double getNearestDist() {
+        // find the nearest two clusters, initilazation with first two clusters
+        double nearDist = clusters[0].centroid.getDistance(clusters[1].centroid);
+           
+        for (int i = 0; i < k; i++) {
+            for (int j = i + 1; j < k; j++) {
+                double tempDist = clusters[i].centroid.getDistance(clusters[j].centroid);
+
+                if (tempDist < nearDist) {
+                    nearDist = tempDist;
+                }
+            }
+        }
+        return nearDist;
+    }
 
 }

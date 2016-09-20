@@ -1527,7 +1527,8 @@ public class Application extends javax.swing.JFrame {
     }//GEN-LAST:event_hierarchicalSelectPanelMouseReleased
 
         private void splitSmartSwapClustererButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererButtonActionPerformed
-            switch (mapKit.splitSmartSwapCluster.startSplitSmartSwap(data)) {
+            int zoom = mapKit.getMainMap().getZoom();
+            switch (mapKit.splitSmartSwapCluster.startSplitSmartSwap(data, zoom)) {
             case 0:
                 this.tabbedViewerPanel.setSelectedIndex(2);
                 showResultInfo(mapKit.splitSmartSwapCluster.clustersArray, mapKit.splitSmartSwapCluster.duration, "SplitSmartSwapCluster");
@@ -1673,24 +1674,28 @@ public class Application extends javax.swing.JFrame {
             @Override
             public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
                 mapResultUpdate();
+                updateSplitSmartSwap();
             }
         });
         mapKit.getZoomSlider().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 mapResultUpdate();
+                updateSplitSmartSwap();
             }
         });
         mapKit.getZoomInButton().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 mapResultUpdate();
+                updateSplitSmartSwap();
             }
         });
         mapKit.getZoomOutButton().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 mapResultUpdate();
+                updateSplitSmartSwap();
             }
         });
     }
@@ -1698,6 +1703,13 @@ public class Application extends javax.swing.JFrame {
     private void mapResultUpdate() {
         if (mapKit.markerClusterer.doMarkerCluster()) {
             showResultInfo(mapKit.markerClusterer.clustersArray, mapKit.markerClusterer.duration, "MarkerClusterer");
+        }
+    }
+    
+    private void updateSplitSmartSwap(){
+        int zoom = mapKit.getMainMap().getZoom();
+        if (mapKit.splitSmartSwapCluster.doSplitSmartSwap(zoom)) {
+            showResultInfo(mapKit.splitSmartSwapCluster.clustersArray, mapKit.splitSmartSwapCluster.duration, "SplitSmartSwapCluster");
         }
     }
 
