@@ -105,13 +105,31 @@ public class ClusterData {
         swapIterations();
         return clusters;
     }
+    
+    public ArrayList<Cluster[]> splitSmartSwap() {
+        k = 2;
+        initClusters();
+        ArrayList<Cluster[]> allClusters = new ArrayList<Cluster[]>();
+        allClusters.add(null);
+        allClusters.add(null);
+        int maxIteration = java.lang.Math.min(data.length, 60);
+        while (k <= maxIteration) {
+            assignDataSwap();
+            updateCentroidsSwap();
+            swapIterations();
+            allClusters.add(clusters.clone());
+            this.clusters = getLargestDistortion(k);
+            k++;
+        }
+        return allClusters;
+    }
 
     /**
      * get the index of point which is the largest distance
      *
      * @return
      */
-    private void getLargestDistortion(int _k) {
+    private Cluster[] getLargestDistortion(int _k) {
         int index = 0;
         int K = _k;
         int[] indexs = new int[K];
@@ -132,11 +150,15 @@ public class ClusterData {
                 }
             }
         }
-        Cluster newclusters[] = new Cluster[K + 1];
+        Cluster newClusters[] = new Cluster[K + 1];
         for (int ii = 0; ii < K; ii++) {
-            newclusters[ii].centroid = clusters[ii].centroid;
+            Cluster tempCluster = new Cluster(isGPS, data[0].vectors.length);
+            tempCluster.centroid = clusters[ii].centroid;
+            newClusters[ii] = tempCluster;
         }
-        newclusters[K].centroid = new Point(newVectors, isGPS);
+        newClusters[K] = new Cluster(isGPS, data[0].vectors.length);
+        newClusters[K].centroid = new Point(newVectors, isGPS);
+        return newClusters;
     }
 
     // initilize the clusters
@@ -651,10 +673,10 @@ public class ClusterData {
         return mse;
     }
     
-    public double getNearestDist() {
+    public static double getNearestDist(Cluster[] clusters) {
         // find the nearest two clusters, initilazation with first two clusters
         double nearDist = clusters[0].centroid.getDistance(clusters[1].centroid);
-           
+        int k = clusters.length;
         for (int i = 0; i < k; i++) {
             for (int j = i + 1; j < k; j++) {
                 double tempDist = clusters[i].centroid.getDistance(clusters[j].centroid);
