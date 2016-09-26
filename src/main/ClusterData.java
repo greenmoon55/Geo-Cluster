@@ -106,13 +106,12 @@ public class ClusterData {
         return clusters;
     }
     
-    public ArrayList<Cluster[]> splitSmartSwap() {
+    public ArrayList<Cluster[]> splitSmartSwap(int maxIteration) {
         k = 2;
         initClusters();
         ArrayList<Cluster[]> allClusters = new ArrayList<Cluster[]>();
         allClusters.add(null);
         allClusters.add(null);
-        int maxIteration = java.lang.Math.min(data.length, 60);
         while (k <= maxIteration) {
             assignDataSwap();
             updateCentroidsSwap();

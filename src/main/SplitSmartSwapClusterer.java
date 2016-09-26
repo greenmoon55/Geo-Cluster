@@ -22,7 +22,7 @@ public class SplitSmartSwapClusterer {
     public boolean startCluster = false;
     private final double[] minDistance;
     private ArrayList<Cluster[]> allClusters;
-    private double[] dnear = new double[100];
+    private double[] dnear;
     private int maxIteration;
 
 
@@ -45,8 +45,12 @@ public class SplitSmartSwapClusterer {
         long start = System.currentTimeMillis();
         this.clusters = new ArrayList<Cluster>();
         ClusterData cd = new ClusterData(data, true);
-        allClusters = cd.splitSmartSwap();
-        maxIteration = java.lang.Math.min(data.length, 60);
+        
+        this.maxIteration = (int) java.lang.Math.ceil(java.lang.Math.sqrt(data.length));
+        this.dnear = new double[maxIteration];
+//        maxIteration = java.lang.Math.min(data.length, 90);
+        allClusters = cd.splitSmartSwap(maxIteration);
+        
         for (int k = 2; k < maxIteration; k++) {
             dnear[k] = ClusterData.getNearestDist(allClusters.get(k));
         }
@@ -81,7 +85,7 @@ public class SplitSmartSwapClusterer {
     
     private double[] getDistance() {
         double[] distances = new double[50];
-        distances[0] = 1000;
+        distances[0] = 2500;
         for (int i = 1; i < distances.length; i++) {
             distances[i] = distances[i - 1] / 2;
         }
