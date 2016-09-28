@@ -4,8 +4,6 @@ A Java application built using NetBeans which helps people implement and test th
 
 # Contributors
 
-[rambotzhong](https://github.com/rambotzhong)
-
-[AdamGu0](https://github.com/AdamGu0)
-
-[greenmoon55](https://github.com/greenmoon55)
+* [rambotzhong](https://github.com/rambotzhong)
+* [AdamGu0](https://github.com/AdamGu0)
+* [greenmoon55](https://github.com/greenmoon55)
