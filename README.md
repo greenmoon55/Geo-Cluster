@@ -2,7 +2,7 @@
 
 A Java application built using NetBeans which helps people implement and test their clustering algorithms.
 
-# Contributors
+## Contributors
 
 * [rambotzhong](https://github.com/rambotzhong)
 * [AdamGu0](https://github.com/AdamGu0)
