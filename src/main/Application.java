@@ -58,7 +58,7 @@ public class Application extends javax.swing.JFrame {
         markerClustererRadio.setSelected(false);
         spectralRadio.setSelected(false);
         hierarchicalRadio.setSelected(false);
-	splitSmartSwapClustererRadio.setSelected(false);
+        splitSmartSwapClustererRadio.setSelected(false);
 
         setMapResultUpdate();
     }
@@ -1567,7 +1567,7 @@ public class Application extends javax.swing.JFrame {
         }
         this.isGPSData = isGPSData;
         markerClustererButton.setEnabled(isGPSData);
-	splitSmartSwapClustererButton.setEnabled(isGPSData);
+        splitSmartSwapClustererButton.setEnabled(isGPSData);
     }
 
     private void showResultInfo(Cluster[] clusters, long duration, String algorithm) {
@@ -1677,6 +1677,15 @@ public class Application extends javax.swing.JFrame {
                 updateSplitSmartSwap();
             }
         });
+        mapKit.getMainMap().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt){
+                if (evt.getClickCount() == 2) {
+                    mapResultUpdate();
+                    updateSplitSmartSwap();
+                }
+            }
+        });
         mapKit.getZoomSlider().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -1716,6 +1725,7 @@ public class Application extends javax.swing.JFrame {
     private void cleanResult() {
         resultClusters = null;
         mapKit.markerClusterer.startCluster = false;
+        mapKit.splitSmartSwapCluster.startCluster = false;
         Cluster[] cs = null;
         mapKit.setWaypoints(cs);
         clusterPanel.clusters = null;

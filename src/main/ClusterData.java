@@ -109,7 +109,7 @@ public class ClusterData {
     public ArrayList<Cluster[]> splitSmartSwap(int maxIteration) {
         k = 2;
         initClusters();
-        ArrayList<Cluster[]> allClusters = new ArrayList<Cluster[]>();
+        ArrayList<Cluster[]> allClusters = new ArrayList<>();
         allClusters.add(null);
         allClusters.add(null);
         while (k <= maxIteration) {
