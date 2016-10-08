@@ -1796,9 +1796,12 @@ public class Application extends javax.swing.JFrame {
             showWarning("Please input the MinPts and Eps.");
             return;
         }
+        
         //set the algorithm parameters
         DBScan.Eps = Double.parseDouble(epsTextField.getText());
         DBScan.MinPts = Integer.parseInt(minPtsTextField.getText());
+
+        cleanResult();
 
         long startDBScan = System.currentTimeMillis();
         DBScan dbscanAlgorithm = new DBScan();
@@ -1861,8 +1864,10 @@ public class Application extends javax.swing.JFrame {
             showWarning("Please input the number of clusters and steps.");
             return;
         }
-
+        
         if (data != null) {
+            cleanResult();
+            
             int k;  // number of clusters
             int kIterations; // iterations for kmeans
             long start, end, duration; // start, end and duration of clustering method
@@ -1899,6 +1904,8 @@ public class Application extends javax.swing.JFrame {
         }
 
         if (data != null) {
+            cleanResult();
+
             int k;  // number of clusters
             long start, end, duration; // start, end and duration of clustering method
 
@@ -1939,6 +1946,8 @@ public class Application extends javax.swing.JFrame {
             return;
         }
 
+        cleanResult();
+        
         //set the algorithm parameters
         int mParameter = Integer.parseInt(mTextField.getText());
         int optionParameter = optionComboBox.getSelectedIndex();
@@ -2020,6 +2029,8 @@ public class Application extends javax.swing.JFrame {
             int kIterations; // iterations for kmeans
             long start, duration; // start, end and duration of clustering method
 
+            cleanResult();
+            
             k = Integer.parseInt(spectralKTextField.getText());
             kIterations = Integer.parseInt(spectralIterationsTextField.getText());
             start = System.currentTimeMillis();
@@ -2065,6 +2076,8 @@ public class Application extends javax.swing.JFrame {
         }
 
         if (data != null) {
+            cleanResult();
+            
             long start = System.currentTimeMillis();
             HierarchicalClustering hc = new HierarchicalClustering(k, data, isGPSData);
             hc.doCluster();

@@ -33,14 +33,14 @@ public class SplitSmartSwapClusterer {
     }
     
     private void loadCache() {
-        ObjectInputStream objectinputstream = null;
         try {
             FileInputStream fin = new FileInputStream(getFullPath());
             ObjectInputStream ois = new ObjectInputStream(fin);
             allClusters = (ArrayList<Cluster[]>) ois.readObject();
+            dnear = (double[]) ois.readObject();
             ois.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Cache Not Available");
+            System.out.println("Cache Not Available: " + getFullPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,17 +56,24 @@ public class SplitSmartSwapClusterer {
         } else if (data.length == 0) {
             return 2;
         }
-        this.fileName = fileName;
+        if (!fileName.equals(this.fileName)) {
+            this.fileName = fileName;
+            this.allClusters = null;
+            loadCache();
+        }
         this.startCluster = true;
-        if (allClusters == null) loadCache();
+        
         
         long start = System.currentTimeMillis();
         ClusterData cd = new ClusterData(data, true);
         
         this.maxIteration = (int) java.lang.Math.ceil(java.lang.Math.sqrt(data.length));
-        this.dnear = new double[maxIteration];
         if (allClusters == null) {
             allClusters = cd.splitSmartSwap(maxIteration);
+            this.dnear = new double[maxIteration];
+            for (int k = 2; k < maxIteration; k++) {
+                dnear[k] = ClusterData.getNearestDist(allClusters.get(k));
+            }
             ObjectOutputStream oos = null;
             FileOutputStream fout = null;
             try {
@@ -75,15 +82,13 @@ public class SplitSmartSwapClusterer {
                 fout = new FileOutputStream(getFullPath(), true);
                 oos = new ObjectOutputStream(fout);
                 oos.writeObject(allClusters);
+                oos.writeObject(dnear);
                 oos.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        for (int k = 2; k < maxIteration; k++) {
-            dnear[k] = ClusterData.getNearestDist(allClusters.get(k));
-        }
-        System.out.println(Arrays.toString(dnear));
+        // System.out.println(Arrays.toString(dnear));
         duration = System.currentTimeMillis() - start;
         doSplitSmartSwap(zoom);
         return 0;
