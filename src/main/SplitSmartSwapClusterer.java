@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,8 +16,6 @@ import java.util.Arrays;
 public class SplitSmartSwapClusterer {
 
     private final MapKit mapKit;
-    private Point[] data;
-    private ArrayList<Cluster> clusters;
     public Cluster[] clustersArray;
     public long duration;
     public boolean startCluster = false;
@@ -24,6 +23,7 @@ public class SplitSmartSwapClusterer {
     private ArrayList<Cluster[]> allClusters;
     private double[] dnear;
     private int maxIteration;
+    private String fileName;
 
 
 
@@ -31,26 +31,55 @@ public class SplitSmartSwapClusterer {
         this.mapKit = mapKit;
         this.minDistance = getDistance();
     }
+    
+    private void loadCache() {
+        ObjectInputStream objectinputstream = null;
+        try {
+            FileInputStream fin = new FileInputStream(getFullPath());
+            ObjectInputStream ois = new ObjectInputStream(fin);
+            allClusters = (ArrayList<Cluster[]>) ois.readObject();
+            ois.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Cache Not Available");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private String getFullPath() {
+        return "." + File.separator + "cache" + File.separator + fileName;
+    }
 
-    public int startSplitSmartSwap(Point[] data, int zoom) {
+    public int startSplitSmartSwap(Point[] data, int zoom, String fileName) {
         if (data == null) {
             return 1;
         } else if (data.length == 0) {
             return 2;
         }
+        this.fileName = fileName;
         this.startCluster = true;
-        this.data = data.clone();
-        this.allClusters = new ArrayList<Cluster[]>();
+        if (allClusters == null) loadCache();
         
         long start = System.currentTimeMillis();
-        this.clusters = new ArrayList<Cluster>();
         ClusterData cd = new ClusterData(data, true);
         
         this.maxIteration = (int) java.lang.Math.ceil(java.lang.Math.sqrt(data.length));
         this.dnear = new double[maxIteration];
-//        maxIteration = java.lang.Math.min(data.length, 90);
-        allClusters = cd.splitSmartSwap(maxIteration);
-        
+        if (allClusters == null) {
+            allClusters = cd.splitSmartSwap(maxIteration);
+            ObjectOutputStream oos = null;
+            FileOutputStream fout = null;
+            try {
+                File dir = new File("cache");
+                dir.mkdir();
+                fout = new FileOutputStream(getFullPath(), true);
+                oos = new ObjectOutputStream(fout);
+                oos.writeObject(allClusters);
+                oos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         for (int k = 2; k < maxIteration; k++) {
             dnear[k] = ClusterData.getNearestDist(allClusters.get(k));
         }

@@ -10,12 +10,9 @@ import DBscan.Tuple;
 import gridgrowing.GridClustering;
 import spectralclustering.SpectralClustering;
 import hierarchicalclustering.HierarchicalClustering;
-import java.awt.Color;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JFileChooser;
-import javax.swing.JScrollBar;
 import javax.swing.filechooser.FileFilter;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -1528,20 +1524,20 @@ public class Application extends javax.swing.JFrame {
 
         private void splitSmartSwapClustererButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererButtonActionPerformed
             int zoom = mapKit.getMainMap().getZoom();
-            switch (mapKit.splitSmartSwapCluster.startSplitSmartSwap(data, zoom)) {
-            case 0:
-                this.tabbedViewerPanel.setSelectedIndex(2);
-                showResultInfo(mapKit.splitSmartSwapCluster.clustersArray, mapKit.splitSmartSwapCluster.duration, "SplitSmartSwapCluster");
-                break;
-            case 1:
-                showWarning("There is no loaded file.");
-                break;
-            case 2:
-                showWarning("There is no point.");
-                break;
-            default:
-                break;
-        }
+            switch (mapKit.splitSmartSwapCluster.startSplitSmartSwap(data, zoom, fileName)) {
+                case 0:
+                    this.tabbedViewerPanel.setSelectedIndex(2);
+                    showResultInfo(mapKit.splitSmartSwapCluster.clustersArray, mapKit.splitSmartSwapCluster.duration, "SplitSmartSwapCluster");
+                    break;
+                case 1:
+                    showWarning("There is no loaded file.");
+                    break;
+                case 2:
+                    showWarning("There is no point.");
+                    break;
+                default:
+                    break;
+            }
         }//GEN-LAST:event_splitSmartSwapClustererButtonActionPerformed
 
         private void splitSmartSwapClustererRadioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_splitSmartSwapClustererRadioStateChanged
